@@ -1,0 +1,113 @@
+execute pathogen#infect()
+
+set termguicolors
+set background=dark
+colorscheme solarized8
+
+" airline
+let g:airline_theme='powerlineish'
+let g:airline_section_b=' %t%m '
+let g:airline_section_c=''
+let g:airline_section_x=''
+let g:airline_section_y=' L/N:%l '
+let g:airline_section_z='%{strftime(" %-I:%M %p %a ")}'
+let g:airline_section_error=''
+let g:airline_section_warning=''
+
+" ctrlp
+let g:ctrlp_use_caching=1
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:10'
+let g:ctrlp_lazy_update=1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|svn)$',
+  \ 'file': '\v\.(so|o)$',
+  \ 'link': 'some_bad_symbolic_links',
+\ }
+let g:ctrlp_buffer_func={'enter': 'BrightHighlightOn', 'exit': 'BrightHighlightOff'}
+function BrightHighlightOn()
+	hi CursorLine ctermfg=Black ctermbg=DarkGreen
+endfunction
+function BrightHighlightOff()
+	hi CursorLine ctermfg=None ctermbg=0
+endfunction
+
+" neocomplcache
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : ''
+        \ }
+
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+
+syntax on
+filetype plugin indent on
+" タブ
+set tabstop=2
+set shiftwidth=0
+" インデント
+set autoindent
+set smartindent
+" サーチ
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+
+set splitright
+set matchtime=3
+set backspace=2
+
+set completeopt-=preview
+
+let mapleader="\<Space>"
+
+inoremap <silent> jj  <ESC>:<C-u>w<CR>
+nnoremap          qq  :<C-u>q<CR>
+nnoremap <TAB>        <C-w>w
+
+nnoremap <Leader>f    :CtrlP<CR>
+nnoremap <Leader>b    :CtrlPBuffer<CR>
+nnoremap <Leader>r    :CtrlPMRU<CR>
+
+nnoremap <C-j> :cnext<CR>
+nnoremap <C-k> :cprevious<CR>
+
+"hi NonText     cterm=None ctermfg=None gui=None guifg=#435156
+hi DiffAdd     ctermfg=Black ctermbg=DarkGreen
+hi DiffChange  ctermfg=Black ctermbg=DarkYellow
+hi DiffDelete  ctermfg=Black ctermbg=DarkCyan
+hi DiffText    ctermfg=Black ctermbg=LightGray
+
