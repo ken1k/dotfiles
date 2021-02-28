@@ -96,7 +96,9 @@ augroup END
 " 共通設定：ローカルvimrc読込
 function! s:vimrc_local(loc)
 	let file = findfile('.vimrc.local', a:loc.';', 1)
-	source `=file`
+	if file != ""
+		source `=file`
+	endif
 endfunction
 
 
