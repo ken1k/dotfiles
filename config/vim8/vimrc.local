@@ -1,0 +1,4 @@
+set number
+
+let g:quickrun_config['make']['outputter/quickfix/errorformat'] = '%f:%l:%c:\ %t%*[^:]:%m'
+
