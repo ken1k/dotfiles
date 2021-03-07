@@ -1,5 +1,8 @@
 execute pathogen#infect()
 
+set encoding=utf-8
+scriptencoding=utf-8
+
 set termguicolors
 set background=dark
 colorscheme solarized8
@@ -10,9 +13,12 @@ let g:airline_section_b='%t%m'
 let g:airline_section_c=''
 let g:airline_section_x=''
 let g:airline_section_y='%l:%c'
-let g:airline_section_z='%{strftime("%I:%M %p %a")}'
-let g:airline_section_error='%{qfstatusline#Update()}'
-let g:airline_section_warning=''
+"let g:airline_section_z='%{strftime("%I:%M %p %a")}'
+let g:airline_section_z=''
+let g:airline_section_error='%{qfstatusline#Update("error")}'
+"let g:airline_section_error='%{qfstatusline#Update()}'
+let g:airline_section_warning='%{qfstatusline#Update("warning")}'
+"let g:airline_section_warning=''
 
 " qfstatusline
 let g:Qfstatusline#UpdateCmd = function('airline#update_statusline')
